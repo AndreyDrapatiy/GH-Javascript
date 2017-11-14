@@ -1,6 +1,8 @@
 // dinamic hamburger //
 var forEach = function (t, o, r) {
-    if ("[object Object]" === Object.prototype.toString.call(t)) for (var c in t) Object.prototype.hasOwnProperty.call(t, c) && o.call(r, t[c], c, t); else for (var e = 0, l = t.length; l > e; e++) o.call(r, t[e], e, t)
+    if ("[object Object]" === Object.prototype.toString.call(t))
+        for (var c in t) Object.prototype.hasOwnProperty.call(t, c) && o.call(r, t[c], c, t);
+        else for (var e = 0, l = t.length; l > e; e++) o.call(r, t[e], e, t)
 };
 
 var hamburgers = document.querySelectorAll(".hamburger");
@@ -33,6 +35,16 @@ document.getElementById('sidebar-open-close').addEventListener('click', function
         sideClass.add('sidebar-close');
         innerColor.style.backgroundColor = "#fff";
 
+    }
+});
+document.getElementById('sidebar').addEventListener('click', function () {
+
+    var sideClass = document.getElementById('sidebar').classList;
+    var innerColor = document.getElementById('hamburger-inner');
+    if (sideClass.contains('sidebar-open')) {
+        sideClass.remove('sidebar-open');
+        sideClass.add('sidebar-close');
+        innerColor.style.backgroundColor = "#fff";
     }
 });
 // sidebar opensclose//

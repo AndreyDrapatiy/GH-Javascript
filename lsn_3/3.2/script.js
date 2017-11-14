@@ -45,13 +45,17 @@ pet.prototype.status = function () {
 };
 
 pet.prototype.sayHi = function () {
-    console.log("Hello")
+    console.log("Hello");
+    var template = '<img src="src/saluting.gif">';
+    document.getElementById('animation').innerHTML = template;
 };
 
 pet.prototype.eat = function () {
     if (this.satiety < 80) {
         console.log("Om Nom Nom");
         this.satiety += 10;
+        var template = '<img src="src/eat.gif">';
+        document.getElementById('animation').innerHTML = template;
     }
     else {
         console.log("I do not want to eat now");
@@ -67,6 +71,8 @@ pet.prototype.walk = function () {
         location.reload();
     }
     else {
+        var template = '<img src="src/image049.gif">';
+        document.getElementById('animation').innerHTML = template;
         console.log("YaHoo! Was interesting and i am steel alive");
         this.happiness += 10;
         this.satiety -= 20;
@@ -85,6 +91,8 @@ pet.prototype.walk = function () {
 pet.prototype.sleep = function () {
     if (this.fatigue < 50) {
         console.log("ZZZzzz...");
+        var template = '<img src="src/sleep.gif">';
+        document.getElementById('animation').innerHTML = template;
         var i = 10;
         (function () {
             if (i > 0) {
@@ -93,6 +101,8 @@ pet.prototype.sleep = function () {
                 setTimeout(arguments.callee, 1000);
             } else {
                 console.log('I am with you again ');
+                var template = '<img src="src/image120.gif">';
+                document.getElementById('animation').innerHTML = template;
             }
         })();
     }
@@ -122,5 +132,21 @@ pet.prototype.learn = function () {
 };
 
 
+var pet = new pet(pet);
 
-// will be continued
+var template = '<img src="src/image120.gif">';
+document.getElementById('animation').innerHTML = template;
+
+document.getElementById('sayHi').addEventListener('click', function () {
+    pet.sayHi();
+});
+document.getElementById('eat').addEventListener('click', function () {
+    pet.eat();
+});
+document.getElementById('sleep').addEventListener('click', function () {
+    pet.sleep();
+});
+document.getElementById('walk').addEventListener('click', function () {
+    pet.walk();
+});
+
