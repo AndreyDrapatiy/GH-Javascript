@@ -1,87 +1,93 @@
-function help() {
-    console.log("Enter name.sayHi to say Hi");
-    console.log("Enter name.eat to keep normal satiety & health");
-    console.log("Enter name.sleep to to keep min fatigue level ");
-    console.log("Enter name.learn to be smart");
-    console.log("Enter name.walk to be happy or dead (will see)");
 
-}
-
-
-console.log("Wellcome!");
-console.log("Create a new pet with command: var nameWouldYouLike = new pet(name)");
-console.log("You can always check your pet status with name.status() command");
-console.log("You can use help() command for more");
 
 
 function pet(name) {
     this.name = name;
-    this.health = 50;   // default values in start moment
+    this.health = 80;   // default values in start moment
     this.happiness = 50;
-    this.satiety = 50;
+    this.satiety = 30;
     this.fatigue = 50;
-    this.stupidity = 100;
 
     this.healthStatus = function () {
         if (this.health < 10 || this.satiety < 10) {
             alert("WASTED");
             location.reload()
         }
+    };
+    this.upDateStatus = function () {
+        var statusDiv = document.getElementById('status');
+        var statusTemplate = '<div class="col-md-4 health">Healthe:'+ this.health +'</div>' +
+                            '<div class="col-md-4 satiety">Satiety:' + this.satiety +'</div>'+
+                            '<div class="col-md-4 happiness">Happy:' + this.happiness +'</div>';
+        statusDiv.innerHTML = statusTemplate;
     }
 }
 
 
-pet.prototype.status = function () {
-    console.log(
-        "Health:" + this.health,
-        "Happiness:" + this.happiness,
-        "Satiety:" + this.satiety,
-        "Fatigue" + this.fatigue,
-        "Stupidity" + this.stupidity
-    );
 
+
+
+var massDiv = document.getElementById('mass');//вывод сообщений сюда
+
+pet.prototype.wellcome = function () { // работает 1 раз после запуска
+    var template = '<img src="src/saluting.gif">';
+    document.getElementById('animation').innerHTML = template;
+    massDiv.innerHTML = "Hello! My name is 'Name', I will be your pet";
+};
+
+pet.prototype.normal = function () {  // анимация по умолчанию
+    var template = '<img src="src/normal.gif">';
+    document.getElementById('animation').innerHTML = template;
+};
+
+
+pet.prototype.eat = function () {
+    if (this.satiety < 80) {
+
+        var template = '<img src="src/eat.gif">';
+        document.getElementById('animation').innerHTML = template;
+        massDiv.innerHTML = "Om Nom Nom";
+        this.satiety += 20;
+        this.fatigue += 20;
+    }
+    else {
+        massDiv.innerHTML = "I do not want to eat now";
+    }
     this.healthStatus()
 
 };
 
-pet.prototype.sayHi = function () {
-    console.log("Hello");
-    var template = '<img src="src/saluting.gif">';
-    document.getElementById('animation').innerHTML = template;
-};
 
-pet.prototype.eat = function () {
-    if (this.satiety < 80) {
-        console.log("Om Nom Nom");
-        this.satiety += 10;
-        var template = '<img src="src/eat.gif">';
-        document.getElementById('animation').innerHTML = template;
-    }
-    else {
-        console.log("I do not want to eat now");
-    }
-
-};
 
 
 pet.prototype.walk = function () {
     var random = Math.floor(Math.random() * (100 - 1));
-    if (random <= 25) { // 25%
+    function football() {
+        var template = '<img src="src/image049.gif">';
+        document.getElementById('animation').innerHTML = template;
+    }
+    function jump(){
+        var template = '<img src="src/image029.gif">';
+        document.getElementById('animation').innerHTML = template;
+    }
+    if (random <= 5) { // 5% что он здохнет во время прогулки
         alert("Ohh A large balcony fell on your pet, He is dead! Game will restart");
         location.reload();
     }
     else {
-        var template = '<img src="src/image049.gif">';
-        document.getElementById('animation').innerHTML = template;
-        console.log("YaHoo! Was interesting and i am steel alive");
+
+        football();
+        setTimeout(jump,4000);
+
+        massDiv.innerHTML = "YaHoo! So interesting and i am steel alive";
         this.happiness += 10;
         this.satiety -= 20;
         this.fatigue -= 20;
         if (this.satiety < 40) {
-            console.log("I want eat now")
+            massDiv.innerHTML = "I want eat now";
         }
         else if (this.fatigue < 20) {
-            console.log("I'm very tired, I want to sleep")
+            massDiv.innerHTML = "I'm very tired, I want to sleep"
         }
     }
     this.healthStatus()
@@ -90,63 +96,56 @@ pet.prototype.walk = function () {
 
 pet.prototype.sleep = function () {
     if (this.fatigue < 50) {
-        console.log("ZZZzzz...");
         var template = '<img src="src/sleep.gif">';
         document.getElementById('animation').innerHTML = template;
         var i = 10;
         (function () {
             if (i > 0) {
-                console.log("Wait until I'm sleeping " + i + " seconds");
+                massDiv.innerHTML = "Wait until I'm sleeping " + i + " seconds";
                 i--;
                 setTimeout(arguments.callee, 1000);
             } else {
-                console.log('I am with you again ');
-                var template = '<img src="src/image120.gif">';
-                document.getElementById('animation').innerHTML = template;
+                massDiv.innerHTML ='I am with you again ';
             }
         })();
     }
     else {
-        console.log("I don want sleep now! go for walk with me!     (You can use name.walk()")
+       massDiv.innerHTML = "I don want sleep now! go for walk with me!"
     }
     this.healthStatus()
 };
 
-pet.prototype.learn = function () {
-    console.log("Hmm it will be interesting, or not");
-    this.stupidity -= 10;
-    this.satiety -= 10;
-    this.fatigue -= 20;
-    this.happiness += 10;
-
-    if (this.satiety < 40) {
-        console.log("I want eat now")
-    }
-    else if (this.fatigue < 40) {
-        console.log("I'm very tired, I want to sleep")
-    }
-    else if (this.happiness < 40) {
-        console.log("I'm very tired, but want more")
-    }
-    this.healthStatus()
-};
 
 
 var pet = new pet(pet);
 
-var template = '<img src="src/image120.gif">';
-document.getElementById('animation').innerHTML = template;
 
-document.getElementById('sayHi').addEventListener('click', function () {
-    pet.sayHi();
-});
+window.onload = pet.upDateStatus();
+window.onload = function () {
+   pet.wellcome();
+   setTimeout(pet.normal,5000)
+};
+
+
+
 document.getElementById('eat').addEventListener('click', function () {
+    clearTimeout(pet.normal());
     pet.eat();
+    pet.upDateStatus();
+    setTimeout(pet.normal, 9000);
+
 });
 document.getElementById('sleep').addEventListener('click', function () {
+    clearTimeout(pet.normal());
     pet.sleep();
+    pet.upDateStatus();
+    setTimeout(pet.normal, 10000);
+
 });
 document.getElementById('walk').addEventListener('click', function () {
+    clearTimeout(pet.normal());
     pet.walk();
+    pet.upDateStatus();
+    setTimeout(pet.normal, 8200);
 });
 
