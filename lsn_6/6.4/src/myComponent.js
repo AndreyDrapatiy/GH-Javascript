@@ -22,7 +22,6 @@ export default class MyComponent extends Component {
         this.eat = this.eat.bind(this)
         this.walk = this.walk.bind(this)
         this.sleep = this.sleep.bind(this)
-        this.updateParameters = this.updateParameters.bind(this)
         this.welcome = this.welcome.bind(this)
         this.normal = this.normal.bind(this)
         this.updateColor = this.updateColor.bind(this)
@@ -36,7 +35,6 @@ export default class MyComponent extends Component {
     componentDidMount() {
         this.disableBtn()
         this.updateStatus()
-        this.updateColor()
         this.welcome()
         setTimeout(function () {
             this.normal()
@@ -47,12 +45,16 @@ export default class MyComponent extends Component {
     }
 
     welcome() {
-        this.updateParameters('message', "Hello! My name is Tamagotchi, I will be your pet")
-        this.updateParameters('currentImage', require('./images/saluting.gif'))
+        this.setState({
+            message: 'Hello! My name is Tamagotchi, I will be your pet',
+            currentImage: require('./images/saluting.gif')
+        })
     }
 
     normal() {
-        this.updateParameters('currentImage', require('./images/normal.gif'))
+        this.setState({
+            currentImage: require('./images/normal.gif')
+        })
     }
 
     disableBtn() {
@@ -62,52 +64,63 @@ export default class MyComponent extends Component {
     }
 
     enableBtn() {
-        for (var btn = document.getElementsByTagName('BUTTON'), j = 0, lj = btn.length; j < lj; j++)
+        for (var btn = document.getElementsByTagName('button'), j = 0, lj = btn.length; j < lj; j++)
             btn[j].disabled = false
     }
 
     eat() {
         if (this.state.satiety < 80) {
-            this.updateParameters('message', "Om Nom Nom")
-            this.updateParameters('currentImage', require('./images/eat.gif'))
-            this.updateParameters('satiety', this.state.satiety + 20)
-            this.updateParameters('fatigue', this.state.fatigue + 20)
+            this.setState({
+                message: 'Om Nom Nom',
+                currentImage: require('./images/eat.gif'),
+                satiety: this.state.satiety + 20,
+                fatigue: this.state.fatigue + 20
+            })
         }
         else {
-            this.updateParameters('message', "I do not want to eat now")
+            this.setState({
+                message: 'I do not want to eat now'
+            })
         }
     }
 
     walk() {
         var random = Math.floor(Math.random() * (100 - 1))
         if (random <= 5) {
-            alert("Ohh A large balcony fell on your pet, He is dead! Game will restart")
+            alert('Ohh A large balcony fell on your pet, He is dead! Game will restart')
             window.location.reload()
         }
         else {
             this.disableBtn()
-            this.updateParameters('currentImage', require('./images/image049.gif'))
-            this.updateParameters('message', "YaHoo! So interesting and I am steel alive")
-            this.updateParameters('happiness', this.state.happiness + 10)
-            this.updateParameters('satiety', this.state.satiety - 20)
-            this.updateParameters('fatigue', this.state.fatigue - 20)
+            this.setState({
+                currentImage: require('./images/image049.gif'),
+                message: 'YaHoo! So interesting and I am steel alive',
+                happiness: this.state.happiness + 10,
+                satiety: this.state.satiety - 20,
+                fatigue: this.state.fatigue - 20
+            })
             if (this.state.satiety >= 10) {
                 var i = 4
                 var int = setInterval(function () {
                     if (i > 0) {
                         i--
                     } else {
-                        this.updateParameters('currentImage', require('./images/image029.gif'))
+                        this.setState({
+                            currentImage: require('./images/image029.gif')
+                        })
                         clearInterval(int)
-                        this.enableBtn()
                     }
                 }.bind(this), 1000)
             }
             if (this.state.satiety < 40) {
-                this.updateParameters('message', "I want eat now")
+                this.setState({
+                    message: 'I want eat now'
+                })
             }
             else if (this.state.fatigue < 20) {
-                this.updateParameters('message', "I'm very tired, I want to sleep")
+                this.setState({
+                    message: 'I\'m very tired, I want to sleep'
+                })
             }
         }
     }
@@ -115,62 +128,48 @@ export default class MyComponent extends Component {
     sleep() {
         if (this.state.fatigue < 50) {
             this.disableBtn()
-            this.updateParameters('currentImage', require('./images/sleep.gif'))
+            this.setState({
+                currentImage: require('./images/sleep.gif')
+            })
             var i = 10
             var int = setInterval(function () {
                     if (i > 0) {
-                        this.updateParameters('message', "Wait until I'm sleeping " + i + " seconds")
+                        this.setState({
+                            message: 'Wait until I\'m sleeping ' + i + ' seconds'
+                        })
                         i--
                     } else {
-                        this.updateParameters('message', "I am with you again")
-                        this.updateParameters('currentImage', require('./images/normal.gif'))
+                        this.setState({
+                            message: 'I am with you again',
+                            currentImage: require('./images/normal.gif')
+                        })
                         clearInterval(int)
-                        this.enableBtn()
                     }
                 }.bind(this), 1000)
         }
         else {
-            this.updateParameters('message', "I don't want sleep now! go for walk with me!")
+            this.setState({
+                message: 'I don\'t want sleep now! go for walk with me!'
+            })
         }
     };
 
     healthStatus() {
         if (this.state.health < 10 || this.state.satiety < 10) {
-            alert("WASTED")
+            alert('WASTED')
             window.location.reload()
         }
     }
 
-    updateParameters(value, param) {
-        this.setState({
-            [value]: param
-        })
-    }
-
-    updateColor() {
-        if (this.state.satiety <= 10){
-            this.state.satietyColor = '#FF5722'
+    updateColor(quantity) {
+        if (quantity <= 10){
+            return 'red-color'
         }
-        else if (this.state.satiety <= 30){
-            this.state.satietyColor = '#FF9800'
+        else if (quantity <= 30){
+            return 'orange-color'
         }
-        else this.state.satietyColor = '#4CAF50'
-
-        if (this.state.health <= 10){
-            this.state.healthColor = '#FF5722'
-        }
-        else if (this.state.health <= 30){
-            this.state.healthColor = '#FF9800'
-        }
-        else this.state.healthColor = '#4CAF50'
-
-        if (this.state.happiness <= 10){
-            this.state.happinessColor = '#FF5722'
-        }
-        else if (this.state.happiness <= 30){
-            this.state.happinessColor = '#FF9800'
-        }
-        else this.state.happinessColor = '#4CAF50'
+        else
+            return 'green-color'
     }
 
     eatClick() {
@@ -183,10 +182,9 @@ export default class MyComponent extends Component {
 
     sleepClick() {
         clearTimeout(this.normal())
-        this.disableBtn()
         this.sleep()
-        setTimeout(function(){this.normal()}.bind(this), 10*1000)
-        setTimeout(function(){this.enableBtn()}.bind(this), 10*1000)
+        setTimeout(function(){this.normal()}.bind(this), 10*1100)
+        setTimeout(function(){this.enableBtn()}.bind(this), 10*1100)
     }
 
     walkClick() {
@@ -203,10 +201,9 @@ export default class MyComponent extends Component {
         return (
             <div className="information">
                 {this.healthStatus()}
-                {this.updateColor()}
-                <div className="col-md-4" id="health" style={{color: this.state.healthColor}}>Health<br/>{this.state.health}</div>
-                <div className="col-md-4" id="satiety" style={{color: this.state.satietyColor}}>Satiety<br/>{this.state.satiety}</div>
-                <div className="col-md-4" id="happiness" style={{color: this.state.happinessColor}}>Happiness<br/>{this.state.happiness}</div>
+                <div className={this.updateColor(this.state.health)} id="health" >Health<br/>{this.state.health}</div>
+                <div className={this.updateColor(this.state.satiety)} id="satiety" >Satiety<br/>{this.state.satiety}</div>
+                <div className={this.updateColor(this.state.happiness)} id="happiness">Happiness<br/>{this.state.happiness}</div>
             </div>
         )
     }
