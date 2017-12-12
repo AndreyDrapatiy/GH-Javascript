@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="vendors/jquery/dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col s12 m6 l6 offset-l3 items-list" id="items-list">
+
+            </div>
+
+            <div class="col s12 m6 l6 offset-l3 invisible creator" id="creator">
+                <form class="col s12">
+                    <div class="row">
+
+                            <div class="input-field col s12">
+                                <input  id="create-title" type="text" class="validate">
+                                <label for="create-title">Title</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input id="create-image-link"  type="text" class="validate">
+                                <label for="create-image-link">Your Image Link</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <textarea id="create-description" class="materialize-textarea"></textarea>
+                                <label for="create-description">Description Here</label>
+                            </div>
+
+                    </div>
+                    <button class="btn waves-effect waves-light left" type="button" name="action" onclick="closeCreator()">Close
+                        <i class="material-icons right"></i>
+                    </button>
+                    <button class="btn waves-effect waves-light right" type="button" name="action" onclick="createNewItem()">Submit
+                        <i class="material-icons right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a class="btn-floating btn-large waves-effect waves-light red" id="addBtn"><i class="material-icons" onclick="openCreator()">+</i></a>
+
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

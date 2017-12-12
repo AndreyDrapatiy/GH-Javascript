@@ -1,0 +1,15 @@
+@import "./normalize.scss";
+@import './variables.scss';
+
+@import '../components/Footer/Footer.scss';
+@import '../components/Header/Header.scss';
+@import '../components/Navigation/Navigation.scss';
+@import '../components/Services/Services.scss';
+@import '../components/Portfolio/Portfolio.scss';
+@import '../components/Team/Team.scss';
+@import '../components/News/News.scss';
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+}

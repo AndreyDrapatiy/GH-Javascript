@@ -1,0 +1,9 @@
+.invisible {
+  display: none; }
+
+#addBtn {
+  position: fixed;
+  right: 10%;
+  bottom: 10%; }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJtYWluLmNzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIuaW52aXNpYmxlIHtcbiAgZGlzcGxheTogbm9uZTsgfVxuXG4jYWRkQnRuIHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICByaWdodDogMTAlO1xuICBib3R0b206IDEwJTsgfVxuIl0sImZpbGUiOiJtYWluLmNzcyJ9 */
