@@ -40,6 +40,7 @@ function getItems() {   // берем ранее полученый ключ о�
                 '<p class="item-description">'+ newItemDescription +'</p>'+
                 '</div>'+
                 '<button onclick="removeItem(this, this.parentNode.id)">remove</button>'+
+                '<button onclick="startEdit(this, this.parentNode.id)">edit</button>'+
                 '</div>';
 
             document.getElementById('items-list').innerHTML += template;
@@ -89,6 +90,7 @@ function createNewItem() {
         '<p class="item-description">'+ description +'</p>'+
         '</div>'+
         '<button onclick="removeItem(this, this.parentNode.id)">remove</button>'+
+        '<button onclick="startEdit(this, this.parentNode.id)">edit</button>'+
         '</div>';
 
     document.getElementById('items-list').innerHTML += template;
@@ -118,13 +120,39 @@ function removeItem(thisElem, parentId) {
 
     thisElem.parentNode.remove(); //Удаляем Item из DOM
 
-    localStorage.removeItem(parentId) // Удаляем из Storage. Id елементов они же и ключи к их контенту в storage.
+    localStorage.removeItem(parentId); // Удаляем из Storage. Id елементов они же и ключи к их контенту в storage.
 
+    var getAllKeysFromStorage = JSON.parse(localStorage.getItem('allKeys')); //получаем из Storage масив ключей, парсим обратно из строки в массив
 
-
+    for (var i = 0; i < getAllKeysFromStorage.length; i++) { //идем по масиву с ключами
+       if (getAllKeysFromStorage[i] === parentId){            //и если мы нашли ключ(id/title) к удаляемому айтему, удаляем его из масива
+           getAllKeysFromStorage.splice(i, 1);
+           var serialise = JSON.stringify(getAllKeysFromStorage); //преобразовываем массив обратно в строку
+           localStorage.setItem('allKeys', serialise);          // и записываем обратно в storage
+       }
+    }
 }
 
 
+function startEdit(thisElem, parentId) {
+    openCreator();
 
+    var thisElemInStorage = JSON.parse(localStorage.getItem(parentId));
+
+    var title = thisElemInStorage.title;
+    var image = thisElemInStorage.image;
+    var description = thisElemInStorage.description;
+
+   document.getElementById('create-title').value = title;
+   document.getElementById('create-image-link').value = image;
+   document.getElementById('create-description').value = description;
+
+   removeItem(thisElem, parentId)
+
+}
+
+function submitEdit() {
+
+}
 
 

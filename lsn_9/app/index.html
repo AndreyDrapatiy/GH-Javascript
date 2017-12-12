@@ -55,6 +55,34 @@
                     </button>
                 </form>
             </div>
+            <div class="col s12 m6 l6 offset-l3 invisible editor" id="editor">
+                <form class="col s12">
+                    <div class="row">
+
+                        <div class="input-field col s12">
+                            <input  id="edit-title" type="text" class="validate">
+                            <label for="edit-title">Title</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <input id="edit-image-link"  type="text" class="validate">
+                            <label for="edit-image-link">Your Image Link</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <textarea id="edit-description" class="materialize-textarea"></textarea>
+                            <label for="edit-description">Description Here</label>
+                        </div>
+
+                    </div>
+                    <button class="btn waves-effect waves-light left" type="button" name="action" onclick="closeCreator()">Close
+                        <i class="material-icons right"></i>
+                    </button>
+                    <button class="btn waves-effect waves-light right" type="button" name="action" onclick="submitEdit()">Submit
+                        <i class="material-icons right"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     <a class="btn-floating btn-large waves-effect waves-light red" id="addBtn"><i class="material-icons" onclick="openCreator()">+</i></a>
