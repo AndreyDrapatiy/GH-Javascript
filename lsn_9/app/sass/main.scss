@@ -19,3 +19,27 @@ body{
 .creator{
 
 }
+.popup-container{
+  position: absolute;
+  top:0;
+  left: 0;
+
+  min-width: 100%;
+  min-height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+
+    .popup{
+      position: relative;
+      height: 50%;
+      width: 50%;
+      margin: auto;
+      #popup-title{
+        color: #000;
+      }
+    }
+  .close-modal{
+    color: white;
+   float: right;
+  }
+}

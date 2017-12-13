@@ -39,6 +39,7 @@ function getItems() {   // берем ранее полученый ключ о�
                 '<h2 class="item-title">'+ newItemTitle +'</h2>'+
                 '<p class="item-description">'+ newItemDescription +'</p>'+
                 '</div>'+
+                '<div class="right"><button onclick="openModal(this.parentNode.parentNode.id)">ReadMore</button></div>'+
                 '<button onclick="removeItem(this, this.parentNode.id)">remove</button>'+
                 '<button onclick="startEdit(this, this.parentNode.id)">edit</button>'+
                 '</div>';
@@ -51,6 +52,7 @@ function getItems() {   // берем ранее полученый ключ о�
 
 
 function createNewItem() {
+
     var title = document.getElementById('create-title').value;
     var image = document.getElementById('create-image-link').value;
     var description = document.getElementById('create-description').value;
@@ -89,6 +91,7 @@ function createNewItem() {
         '<h2 class="item-title">'+ title +'</h2>'+
         '<p class="item-description">'+ description +'</p>'+
         '</div>'+
+        '<div><button onclick="openModal(this.parentNode.parentNode.id)">ReadMore</button></div>'+
         '<button onclick="removeItem(this, this.parentNode.id)">remove</button>'+
         '<button onclick="startEdit(this, this.parentNode.id)">edit</button>'+
         '</div>';
@@ -108,11 +111,21 @@ function openCreator() {
     document.getElementById('creator').classList.toggle('invisible');
     document.getElementById('addBtn').classList.toggle('invisible');
 }
+function openEditor() {
+    document.getElementById('items-list').classList.toggle('invisible');
+    document.getElementById('addBtn').classList.toggle('invisible');
+    document.getElementById('editor').classList.toggle('invisible');
+}
 
 function closeCreator() {
     document.getElementById('items-list').classList.toggle('invisible');
     document.getElementById('creator').classList.toggle('invisible');
     document.getElementById('addBtn').classList.toggle('invisible');
+}
+function closeEditor() {
+    document.getElementById('items-list').classList.toggle('invisible');
+    document.getElementById('addBtn').classList.toggle('invisible');
+    document.getElementById('editor').classList.toggle('invisible');
 }
 
 
@@ -134,25 +147,103 @@ function removeItem(thisElem, parentId) {
 }
 
 
-function startEdit(thisElem, parentId) {
-    openCreator();
 
-    var thisElemInStorage = JSON.parse(localStorage.getItem(parentId));
+
+function openModal(parentId) {
+    document.getElementById('popup-container').classList.toggle('invisible'); //открываем модальное окно
+
+    var thisElemInStorage = JSON.parse(localStorage.getItem(parentId));  //получаем контент кликнутого елемента по id/ключу
 
     var title = thisElemInStorage.title;
     var image = thisElemInStorage.image;
     var description = thisElemInStorage.description;
 
-   document.getElementById('create-title').value = title;
-   document.getElementById('create-image-link').value = image;
-   document.getElementById('create-description').value = description;
 
-   removeItem(thisElem, parentId)
+
+    document.getElementById('title-here').innerHTML = title;          // вставляем в dom модального окна
+    document.getElementById('image-here').setAttribute('src', image);
+    document.getElementById('description-here').innerHTML = description;
+
+}
+function closeModal() {
+    document.getElementById('popup-container').classList.toggle('invisible');      // закрываем модальное окно
 
 }
 
-function submitEdit() {
 
-}
 
+
+
+
+
+
+// function startEdit(thisElem, parentId) {
+//     openEditor();
+//
+//     var thisElemInStorage = JSON.parse(localStorage.getItem(parentId));
+//
+//     var title = thisElemInStorage.title;
+//     var image = thisElemInStorage.image;
+//     var description = thisElemInStorage.description;
+//
+//    document.getElementById('edit-title').value = title;
+//    document.getElementById('edit-image-link').value = image;
+//    document.getElementById('edit-description').value = description;
+//
+//    removeItem(thisElem, parentId)
+//
+// }
+//
+// function submitEdit() {
+//
+//     var title = document.getElementById('edit-title').value;
+//     var image = document.getElementById('edit-image-link').value;
+//     var description = document.getElementById('edit-description').value;
+//
+//     var key = title;    //ключ для поиска контента равен заголовку записи, передаем его в keys, который потом запищем в storage
+//                         //по нему мы потом найдем и саму запись и ее контент
+//     var obj = {
+//         title : title,
+//         image : image,
+//         description : description
+//     };
+//
+//     var serialObj = JSON.stringify(obj); //сериализуем обьект
+//     localStorage.setItem(key, serialObj); //запишем его в хранилище по ключу, который равен заголовку
+//
+//     var returnObj = JSON.parse(localStorage.getItem(key)); //спарсим его обратно
+//
+//     var inStorageTitleToKey = returnObj['title'];
+//
+//
+//     keys.push(inStorageTitleToKey); //записываем заголовок как ключь для поиска в массив keys
+//
+//
+//     function updateKeys() {
+//         var serialKeys = JSON.stringify(keys);
+//         localStorage.setItem('allKeys', serialKeys);
+//         return keys;
+//     }
+//
+//     updateKeys(); //обновляем keys  в storage
+//
+//     // вставляем в DOM
+//     var template  = '<div class="col s12 card-panel grey lighten-5 z-depth-1 item"' + ' id="'+ title +'">'+
+//         '<div class="col s4">'+ '<img class="responsive-img"' + ' src="'+ image +'">'+ '</div>'+
+//         '<div class="col s8">'+
+//         '<h2 class="item-title">'+ title +'</h2>'+
+//         '<p class="item-description">'+ description +'</p>'+
+//         '</div>'+
+//         '<button onclick="removeItem(this, this.parentNode.id)">remove</button>'+
+//         '<button onclick="startEdit(this, this.parentNode.id)">edit</button>'+
+//         '</div>';
+//
+//     document.getElementById('items-list').innerHTML += template;
+//
+//     //очистка инпут
+//     document.getElementById('create-title').value = '';
+//     document.getElementById('create-image-link').value = '';
+//     document.getElementById('create-description').value = '';
+// }
+//
 
