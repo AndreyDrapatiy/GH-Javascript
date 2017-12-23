@@ -11,6 +11,7 @@ import Team from './Team/Team'
 // router
 import { Route, Switch } from 'react-router'
 import { HashRouter, Link } from 'react-router-dom'
+import Header from './'
 
 const NotFound = () => {
   return (
@@ -28,7 +29,7 @@ export default class App extends Component {
     return (
       <HashRouter>
         <div className='App'>
-          App
+            <Header/>
         </div>
       </HashRouter>
     )
