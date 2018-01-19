@@ -5,7 +5,7 @@
 }
 .carousel {
     width: 100%;
-    height: 480px;
+    height: 380px;
     overflow: hidden;
     position: relative; }
 .carousel .content {
@@ -20,17 +20,37 @@
 
 .content img{
     display: inline-block;
+    height: 380px;
 
 }
 
-.carousel .next::after, .carousel .prev::after {
-    content: '>';
+.carousel .next::after {
+    content: 'priv';
     position: absolute;
     top: 50%;
     right: 0;
     background-color: white;
     font-size: 20px;
-    width: 1em;
+    width: 3em;
+    height: 3em;
+    font-weight: bold;
+    font-family: sans-serif;
+    transform: translateY(-50%);
+    line-height: 3em;
+    box-sizing: border-box;
+    padding: 0 0.2em;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.1s linear; }
+
+.carousel .prev::after {
+    content: 'next';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background-color: white;
+    font-size: 20px;
+    width: 3em;
     height: 3em;
     font-weight: bold;
     font-family: sans-serif;
@@ -44,6 +64,6 @@
 .carousel .next:hover::after, .carousel .prev:hover::after {
     opacity: 1; }
 .carousel .prev::after {
-    content: '<';
+
     left: 0; }
 

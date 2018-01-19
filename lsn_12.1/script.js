@@ -66,8 +66,8 @@ function drag(thisElem) {
     thisElem.addEventListener('mousedown', dragStart);
 
     function dragStart() {
-        document.addEventListener('mousemove', mouseMove);  // Эта функция работает на событиях мыши
-        document.addEventListener('mouseup', moveEnd);      // Завершение  общее
+        document.addEventListener('mousemove', mouseMove);
+        document.addEventListener('mouseup', moveEnd);
     }
 
 
