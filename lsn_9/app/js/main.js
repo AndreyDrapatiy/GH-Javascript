@@ -2,6 +2,8 @@ var keys = [];  // тут хранятся все ключи от item, по к�
 // сюда записываються сразу после загрузки из storage/и сюда добавляются все новые, которые потом запишуться в storage
 var returnAllKeys = JSON.parse(localStorage.getItem('allKeys')); // получаем все ключи которые уже есть в Storage и парсим
 
+var data = null;
+
 function getKeysAfterReload() {   //пополняем массив keys из хранилища ключами если они там были
     if (returnAllKeys !== null) {   //Что бы не было ошибки Can not read property of null
         for (var i = 0; i < returnAllKeys.length; i++) {
@@ -29,8 +31,9 @@ function getItems() {   // берем ранее полученый ключ о�
             var newItemTitle = thisItem['title'];
             var newItemImage = thisItem['image'];
             var newItemDescription = thisItem['description'];
-
-            var template = '<div class="col s12 card-panel grey lighten-5 z-depth-1 item"' + ' id="' + newItemTitle + '">' +
+            var inArrIndex = i;
+            console.log(inArrIndex);
+            var template = '<div class="col s12 card-panel grey lighten-5 z-depth-1 item"' + ' id="' + newItemTitle + '" '+' data="'+ inArrIndex +'">' +
                 '<div class="col s4">' + '<img' + ' src="' + newItemImage + '">' + '</div>' +
                 '<div class="col s8">' +
                 '<h2 class="item-title" id="item-title">' + newItemTitle + '</h2>' +
@@ -122,6 +125,8 @@ function removeItem(thisElem, parentId) {
             keys.splice(j, 1);
         }
     }
+
+
 }
 
 
@@ -148,7 +153,7 @@ function closeModal() {
 
 function startEdit(thisElem, parentId) {
     openCloseEditor();
-
+    data = thisElem.parentNode.parentNode.getAttribute("data");
     var thisElemInStorage = JSON.parse(localStorage.getItem(parentId));
 
     var title = thisElemInStorage.title;
@@ -159,7 +164,7 @@ function startEdit(thisElem, parentId) {
     document.getElementById('edit-image-link').value = image;
     document.getElementById('edit-description').value = description;
 
-    removeItem(thisElem, parentId)
+    return data;
 
 }
 
@@ -185,7 +190,7 @@ function submitEdit() {
     var inStorageTitleToKey = returnObj['title'];
 
 
-    keys.push(inStorageTitleToKey);
+    keys.splice(data, 1, inStorageTitleToKey);
 
 
     function updateKeys() {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Image Carousel</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="flex-container">
+    <div class="carousel" >
+        <div class="content" onmouseover="drag(this)" style="position: absolute; display: inline-block" >
+            <img src="http://wac.2f9ad.chicdn.net/802F9AD/u/joyent.wme/public/wme/assets/ec050984-7b81-11e6-96e0-8905cd656caf.jpg?v=54">
+            <img src="http://wac.2f9ad.chicdn.net/802F9AD/u/joyent.wme/public/wme/assets/ec050984-7b81-11e6-96e0-8905cd656caf.jpg?v=54">
+            <img src="http://wac.2f9ad.chicdn.net/802F9AD/u/joyent.wme/public/wme/assets/ec050984-7b81-11e6-96e0-8905cd656caf.jpg?v=54">
+        </div>
+
+        <div class="prev"></div>
+        <div class="next"></div>
+    </div>
+    <div class="carousel" >
+        <div class="content" onmousedown="drag(this)" style="position: absolute; display: inline-block" >
+            <img src="http://wac.2f9ad.chicdn.net/802F9AD/u/joyent.wme/public/wme/assets/ec050984-7b81-11e6-96e0-8905cd656caf.jpg?v=54">
+            <img src="http://wac.2f9ad.chicdn.net/802F9AD/u/joyent.wme/public/wme/assets/ec050984-7b81-11e6-96e0-8905cd656caf.jpg?v=54">
+            <img src="http://wac.2f9ad.chicdn.net/802F9AD/u/joyent.wme/public/wme/assets/ec050984-7b81-11e6-96e0-8905cd656caf.jpg?v=54">
+        </div>
+
+        <div class="prev"></div>
+        <div class="next"></div>
+    </div>
+
+</div>
+<div style="width: 200px; height: 200px; border: 1px solid black; overflow: hidden" >
+    <div onclick="drag(this)" style="position: absolute; display: inline-block" >MOVEMOVEMOVEMO</div>
+
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>
